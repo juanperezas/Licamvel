@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Licamvel.App.ViewModels"
+             x:Class="Licamvel.App.Views.LoginPage"
+             x:DataType="vm:LoginViewModel"
+             Title="Iniciar sesión"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,60,28,28"
+                             Spacing="16"
+                             MaximumWidthRequest="480"
+                             VerticalOptions="Center">
+
+            <!-- Encabezado -->
+            <Label Text="🕯️" FontSize="56" HorizontalOptions="Center" />
+            <Label Text="licamvel"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="{AppThemeBinding Light=#7A3E2B, Dark=#E8B796}" />
+            <Label Text="Inicia sesión para continuar"
+                   FontSize="15"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,12" />
+
+            <!-- Campos -->
+            <Label Text="Correo electrónico" FontAttributes="Bold" />
+            <Entry Text="{Binding Correo}"
+                   Placeholder="correo@ejemplo.com"
+                   Keyboard="Email"
+                   ReturnType="Next"
+                   IsEnabled="{Binding IsNotBusy}"
+                   AutomationId="CorreoEntry" />
+
+            <Label Text="Contraseña" FontAttributes="Bold" />
+            <Entry Text="{Binding Password}"
+                   Placeholder="Tu contraseña"
+                   IsPassword="True"
+                   ReturnType="Done"
+                   ReturnCommand="{Binding LoginCommand}"
+                   IsEnabled="{Binding IsNotBusy}"
+                   AutomationId="PasswordEntry" />
+
+            <!-- Mensaje de error -->
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   TextColor="{AppThemeBinding Light=#B3261E, Dark=#F2B8B5}"
+                   FontSize="14" />
+
+            <!-- Botón de ingreso -->
+            <Button Text="Ingresar"
+                    Command="{Binding LoginCommand}"
+                    BackgroundColor="#7A3E2B"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Margin="0,8,0,0"
+                    AutomationId="LoginButton" />
+                <!-- Separador visual -->
+            <Grid ColumnDefinitions="*,Auto,*" Margin="0,15,0,5">
+                <BoxView Grid.Column="0" HeightRequest="1" Color="#CCCCCC" VerticalOptions="Center"/>
+                <Label Grid.Column="1" Text="  O  " TextColor="Gray" FontSize="12"/>
+                <BoxView Grid.Column="2" HeightRequest="1" Color="#CCCCCC" VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Botón opcional de Google -->
+            <Button Text="Continuar con Google"
+                    Command="{Binding LoginWithGoogleCommand}"
+                    BackgroundColor="White"
+                    TextColor="#333333"
+                    BorderColor="#CCCCCC"
+                    BorderWidth="1"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    IsEnabled="{Binding IsNotBusy}" />         
+                                                 
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               HorizontalOptions="Center"
+                               Color="#7A3E2B" />
+
+            <!-- Enlace al registro -->
+            <Label HorizontalOptions="Center" Margin="0,12,0,0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="¿No tienes cuenta? " />
+                        <Span Text="Regístrate"
+                              FontAttributes="Bold"
+                              TextDecorations="Underline"
+                              TextColor="{AppThemeBinding Light=#7A3E2B, Dark=#E8B796}" />
+                    </FormattedString>
+                </Label.FormattedText>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToRegisterCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

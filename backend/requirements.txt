@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+SQLAlchemy>=2.0
+pyodbc
+passlib[bcrypt]
+bcrypt==4.0.1
+PyJWT
+pydantic-settings
+pydantic[email]
+python-multipart
